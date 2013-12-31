@@ -138,9 +138,9 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [brand=" + brand + ", name=" + name + ", yearOfProduction=" + yearOfProduction + ", kilometersOnTheGauge="
-				+ kilometersOnTheGauge + ", type=" + type + ", doorCount=" + doorCount + ", averageBurning=" + averageBurning
-				+ ", engineCapacity=" + engineCapacity + ", fuel=" + fuel + ", price=" + price + ", luggageCapacity="
-				+ luggageCapacity + ", transmission=" + transmission + ", features=" + features + "]";
+				+ kilometersOnTheGauge + "km, type=" + type + ", doorCount=" + doorCount + ", averageBurning=" + averageBurning
+				+ "l/100km, engineCapacity=" + engineCapacity + "l, fuel=" + fuel + ", price=" + price + "zl, luggageCapacity="
+				+ luggageCapacity + "l, transmission=" + transmission + ", features=" + features + "]";
 	}
 
 	

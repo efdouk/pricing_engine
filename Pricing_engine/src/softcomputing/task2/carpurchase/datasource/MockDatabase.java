@@ -5,7 +5,6 @@
 package softcomputing.task2.carpurchase.datasource;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import softcomputing.task2.carpurchase.model.Car;

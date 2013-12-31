@@ -1,0 +1,49 @@
+database holds all orders and items
+the engine is created - it has all db items injected and the clips source loaded.
+
+the input data is injected to engine, then the engine is run and the objects are retrieved from the engine
+
+- all cars are injected
+- the user preferences are injected and are being parsed by the engine
+- the engine returns the 20 most suitable cars SORTED by the wanted rules (sorting may be the tricky part)
+
+-----------------------------------------
+There are three steps of reasoning. Lets make then the three separate clips files to handle those steps.
+
+Each step takes a bunch of items and filters them or rates them, for example:
+1 step
+- sort cars by the important criterions
+- filter them by type
+- return the list
+2 step
+- filter by the criterions
+
+-----------------------------------------
+first step of selection
+-----------------------------------------
+
+ - 3 most important criterions
+ 	[ criterium           | v ]
+ 	 | comfort            |
+ 	 | performance        |
+	 | handling			  |
+	 | economy            |
+	 | quality            |
+	  \___________________|
+
+- car type
+
+ 	[ criterium           | v ]
+ 	 | comfort            |
+ 	 | performance        |
+	 | handling			  |
+	 | economy            |
+	 | quality            |
+	  \___________________|
+
+User picked following:
+	1. performance 2. quality 3. comfort
+
+
+
+
