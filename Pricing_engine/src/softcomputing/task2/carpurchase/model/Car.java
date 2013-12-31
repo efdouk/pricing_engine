@@ -4,6 +4,10 @@
  */
 package softcomputing.task2.carpurchase.model;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> 0a88908336f1f9db6e0f0bc2de8011197041ee21
 import java.util.Set;
 
 /**
@@ -34,7 +38,11 @@ public class Car {
 	
 	//car features
 	private Set<CarFeature> features;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 0a88908336f1f9db6e0f0bc2de8011197041ee21
 	public Car(CarBrand brand, String name, int yearOfProduction, int kilometersOnTheGauge, Set<CarType> type, Integer doorCount,
 			Double averageBurning, Double engineCapacity, FuelType fuel, Double price, Double luggageCapacity,
 			Transmission transmission, Set<CarFeature> features) {
@@ -53,6 +61,7 @@ public class Car {
 		this.features = features;
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -143,5 +152,7 @@ public class Car {
 				+ luggageCapacity + "l, transmission=" + transmission + ", features=" + features + "]";
 	}
 
+=======
+>>>>>>> 0a88908336f1f9db6e0f0bc2de8011197041ee21
 	
 }
