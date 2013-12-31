@@ -33,17 +33,11 @@ first step of selection
 
 - car type
 
- 	[ criterium           | v ]
- 	 | comfort            |
- 	 | performance        |
-	 | handling			  |
-	 | economy            |
-	 | quality            |
-	  \___________________|
+ also dropdown list
 
 User picked following:
 	1. performance 2. quality 3. comfort
 
-
+The CLIPS should make now the reasoning using custom comparator for each car? or some maximum function optimizing those parameters.
 
 
