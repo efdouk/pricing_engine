@@ -4,6 +4,9 @@
  */
 package softcomputing.task2.carpurchase.model;
 
+import softcomputing.task2.carpurchase.engine.api.Attributes;
+
+
 /**
  * Car features
  */

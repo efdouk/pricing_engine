@@ -2,12 +2,9 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase;
+package softcomputing.task2.carpurchase.model;
 
 import java.util.List;
-
-import softcomputing.task2.carpurchase.model.Car;
-import softcomputing.task2.carpurchase.model.UserRequest;
 
 /**
  * 

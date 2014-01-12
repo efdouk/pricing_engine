@@ -2,10 +2,11 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine.tests;
 
 import java.util.Map;
 
+import softcomputing.task2.carpurchase.engine.FeatureWeightsFactory;
 import softcomputing.task2.carpurchase.model.CarFeature;
 
 /**

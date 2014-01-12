@@ -2,11 +2,10 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine.rules;
 
-/**
- * 
- */
+import softcomputing.task2.carpurchase.engine.api.Rule;
+
 public class ProportionalRule implements Rule {
 
 	private double param=0;

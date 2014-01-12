@@ -2,10 +2,14 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine.tests;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import softcomputing.task2.carpurchase.engine.RuleCompiler;
+import softcomputing.task2.carpurchase.engine.api.Rule;
+import softcomputing.task2.carpurchase.engine.rules.RuleFactory;
 
 public class RuleCompilerTest {
 	

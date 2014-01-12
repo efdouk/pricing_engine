@@ -2,12 +2,12 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import softcomputing.task2.carpurchase.model.Attributes;
+import softcomputing.task2.carpurchase.engine.api.Attributes;
 
 /**
  * 

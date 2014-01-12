@@ -2,12 +2,14 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine.rules;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import softcomputing.task2.carpurchase.engine.api.Rule;
 
 public class CustomRule implements Rule {
 

@@ -7,6 +7,7 @@ package softcomputing.task2.carpurchase;
 import java.util.List;
 
 import softcomputing.task2.carpurchase.model.Car;
+import softcomputing.task2.carpurchase.model.CarFilter;
 import softcomputing.task2.carpurchase.model.UserRequest;
 
 /**

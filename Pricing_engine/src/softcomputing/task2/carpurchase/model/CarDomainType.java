@@ -4,8 +4,8 @@
  */
 package softcomputing.task2.carpurchase.model;
 
-import softcomputing.task2.carpurchase.rules.Evaluator;
-import softcomputing.task2.carpurchase.rules.FamilyEvaluator;
+import softcomputing.task2.carpurchase.FamilyEvaluator;
+import softcomputing.task2.carpurchase.engine.api.Evaluator;
 
 /**
  * 

@@ -12,7 +12,6 @@ import jess.Rete;
 import jess.WorkingMemoryMarker;
 import softcomputing.task2.carpurchase.datasource.Database;
 import softcomputing.task2.carpurchase.datasource.MockDatabase;
-import softcomputing.task2.carpurchase.model.Car;
 import softcomputing.task2.carpurchase.model.CarCriterion;
 import softcomputing.task2.carpurchase.model.CarDomainType;
 import softcomputing.task2.carpurchase.model.CarEvaluation;

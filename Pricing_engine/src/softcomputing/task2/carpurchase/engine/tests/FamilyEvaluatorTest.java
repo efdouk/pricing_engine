@@ -2,8 +2,9 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine.tests;
 
+import softcomputing.task2.carpurchase.FamilyEvaluator;
 import softcomputing.task2.carpurchase.datasource.CarFactory;
 
 

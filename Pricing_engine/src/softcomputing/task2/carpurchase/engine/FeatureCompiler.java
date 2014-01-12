@@ -2,7 +2,7 @@
  * @author Konrad Zdanowicz (zdanowicz.konrad@gmail.com)
  * 
  */
-package softcomputing.task2.carpurchase.rules;
+package softcomputing.task2.carpurchase.engine;
 
 import java.util.Map;
 import java.util.Set;
