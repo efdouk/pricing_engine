@@ -9,7 +9,10 @@ import softcomputing.task2.carpurchase.engine.api.Evaluable;
 import softcomputing.task2.carpurchase.engine.api.Evaluator;
 
 /**
+ * Car type in domain language
  * 
+ * Note that each value implements evaluable, so it has a corresponding
+ * evaluator attached in the constructor.
  */
 public enum CarDomainType implements Evaluable {
 
@@ -24,12 +27,13 @@ public enum CarDomainType implements Evaluable {
 	BUSINESS(new CarEvaluator("1,/20,/20,custom:{(1->1)(0.75->1)(0.4->0.1)},/2,10,1,4,/10", "1,0,1,1,1,1,1,1,0", "1,1,0,0,0,1,1,1,0", 1., 5., 10.)),
 
 	LUXURY(new CarEvaluator("10,/1,50,custom:{(0.2->1)(0.1->1)},		-,5,1,10,/10", "1,0,1,1,0,0,1,0,1", "0,0,1,1,1,0,0,0,1", 1., 5., 10.));
-	
+
 	private Evaluator evaluator;
 
 	CarDomainType(Evaluator evaluator) {
 		this.evaluator = evaluator;
 	}
+
 	@Override
 	public Evaluator getEvaluator() {
 		return evaluator;

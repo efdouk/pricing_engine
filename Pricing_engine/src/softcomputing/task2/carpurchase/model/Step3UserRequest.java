@@ -7,7 +7,7 @@ package softcomputing.task2.carpurchase.model;
 import java.util.Set;
 
 /**
- * 
+ * Third user request step
  */
 public class Step3UserRequest {
 

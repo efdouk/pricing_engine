@@ -28,12 +28,6 @@ public class MockDatabase implements Database {
 	}
 
 	@Override
-	public void addCar(Car car) {
-		if (!items.contains(car))
-			items.add(car);
-	}
-
-	@Override
 	public List<Car> getCars() {
 		return items;
 	}

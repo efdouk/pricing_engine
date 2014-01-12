@@ -11,6 +11,11 @@ import java.util.regex.Pattern;
 
 import softcomputing.task2.carpurchase.engine.api.Rule;
 
+/**
+ * Custom rule that parses following expression
+ * custom:{(x1->y1)(x2->y2)...(x_->y_)} which means, that for each x1-x_ value
+ * there is a function that return corresponding y value, otherwise 0
+ */
 public class CustomRule implements Rule {
 
 	Map<Double, Double> valueMap = new HashMap<Double, Double>();

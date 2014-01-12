@@ -9,12 +9,10 @@ import java.util.List;
 import softcomputing.task2.carpurchase.model.Car;
 
 /**
- * 
+ * Database interface
  */ 
 public interface Database {
-
-	public abstract void addCar(Car car);
-
-	public abstract List<Car> getCars();
+	
+	List<Car> getCars();
 
 }

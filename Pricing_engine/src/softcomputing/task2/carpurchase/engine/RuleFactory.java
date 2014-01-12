@@ -13,8 +13,17 @@ import softcomputing.task2.carpurchase.engine.rules.ProportionalRule;
 import softcomputing.task2.carpurchase.engine.rules.ReverseRule;
 import softcomputing.task2.carpurchase.engine.rules.ZeroRule;
 
+/**
+ * Simple rule parser
+ */
 public class RuleFactory {
-
+	/**
+	 *	Return list of appropriate rules based on 
+	 * @param rules
+	 * csv representation of rules, ie.
+	 * 3,/5,custom:{(1->2)},-,0
+	 * @return vector of rules
+	 */
 	public static List<Rule> create(String rules) {
 		String[] ruleArray = rules.split(",");
 		List<Rule> parsedRules = new ArrayList<Rule>();
@@ -25,6 +34,9 @@ public class RuleFactory {
 		return parsedRules;
 	}
 
+	/**
+ * 
+ */
 	private static Rule getRule(String attr) {
 		if (attr.startsWith("custom:")) {
 			String customRules = attr.substring(attr.indexOf("{") + 1, attr.indexOf("}"));

@@ -28,7 +28,7 @@ public class CarFactory {
 		features.add(CarFeature.ABS);
 		features.add(CarFeature.CLIMA);
 		features.add(CarFeature.ELECTRICAL_WINDOWS);
-		Car aCar = new Car(CarBrand.FERRARI, "Testarossa", 1987., 150000., carType, 3., 11.2, 2.4, FuelType.GASOLINE, 120000.0, 2.5, Transmission.AUTOMATIC,features );
+		Car aCar = new Car(CarBrand.FERRARI, "Testarossa", 1987., 150000., carType, 3., 50., 2.4, FuelType.GASOLINE, 120000.0, 2.5, Transmission.AUTOMATIC,features );
 		return aCar;
 	}
 
@@ -40,7 +40,7 @@ public class CarFactory {
 		features.add(CarFeature.ABS);
 		features.add(CarFeature.CLIMA);
 		features.add(CarFeature.ELECTRICAL_WINDOWS);
-		Car aCar = new Car(CarBrand.OPEL, "Corsa CDTI", 2007., 150000., carType, 5., 5.9, 1.3, FuelType.DIESEL, 20000.0, 4.1, Transmission.MANUAL,features );
+		Car aCar = new Car(CarBrand.OPEL, "Corsa CDTI", 2007., 150000., carType, 5., 20., 1.3, FuelType.DIESEL, 20000.0, 4.1, Transmission.MANUAL,features );
 		return aCar;
 	}
 
@@ -56,7 +56,7 @@ public class CarFactory {
 		features.add(CarFeature.HYDRAULIC_SUSPENSION);
 		features.add(CarFeature.GPS);
 		features.add(CarFeature.COMPUTER);
-		Car aCar = new Car(CarBrand.MERCEDES, "S 320", 2002., 300000., carType, 5., 15.0, 2.8, FuelType.GASOLINE, 40000.0, 6.0, Transmission.AUTOMATIC,features );
+		Car aCar = new Car(CarBrand.MERCEDES, "S 320", 2002., 300000., carType, 5., 120., 2.8, FuelType.GASOLINE, 40000.0, 6.0, Transmission.AUTOMATIC,features );
 		return aCar;
 	}
 

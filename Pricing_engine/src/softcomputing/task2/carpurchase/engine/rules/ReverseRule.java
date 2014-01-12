@@ -5,7 +5,11 @@
 package softcomputing.task2.carpurchase.engine.rules;
 
 import softcomputing.task2.carpurchase.engine.api.Rule;
-
+/**
+ * Returns the value reversed to the input, multiplied by coefficent
+ * 
+ * This rule is notated with the prepending slash, ie: /1,/0.01 etc.
+ */
 public class ReverseRule implements Rule {
 
 	private double param = 1;
