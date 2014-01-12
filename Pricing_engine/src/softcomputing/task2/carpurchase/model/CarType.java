@@ -7,6 +7,11 @@ package softcomputing.task2.carpurchase.model;
 /**
  * Car type
  */
-public enum CarType {
-	HATCHBACK, SPORT, SEDAN, LIMOUSINE, CONVERTIBLE, VAN, PICK_UP, COUPE, SUV
+public enum CarType implements Attributes<CarType> {
+	HATCHBACK, SPORT, SEDAN, LIMOUSINE, CONVERTIBLE, VAN, PICK_UP, COUPE, SUV;
+
+	@Override
+	public CarType[] getAttributes() {
+		return values();
+	}
 }

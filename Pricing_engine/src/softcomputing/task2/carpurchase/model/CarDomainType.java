@@ -4,9 +4,22 @@
  */
 package softcomputing.task2.carpurchase.model;
 
+import softcomputing.task2.carpurchase.rules.Evaluator;
+import softcomputing.task2.carpurchase.rules.FamilyEvaluator;
+
 /**
  * 
  */
-public enum CarDomainType {  
-	FAMILY, SPORT, CASUAL, EXTREME, BUSINESS, LUXURY; 
+public enum CarDomainType {
+	FAMILY(new FamilyEvaluator()), SPORT(new SportEvaluator()), CASUAL(new CasualEvaluator()), EXTREME(new ExtremeEvaluator()), BUSINESS(
+			new BusinessEvaluator()), LUXURY(new LuxuryEvaluator());
+	private Evaluator evaluator;
+
+	CarDomainType(Evaluator evaluator) {
+		this.evaluator = evaluator;
+	}
+	
+	public Evaluator getEvaluator() {
+		return evaluator;
+	}
 }

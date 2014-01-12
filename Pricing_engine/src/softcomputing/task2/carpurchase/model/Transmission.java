@@ -8,7 +8,7 @@ package softcomputing.task2.carpurchase.model;
  * Transmission type
  */
 public enum Transmission {
-	MANUAL(0.1), AUTOMATIC(1.), HYBRID(0.5);
+	MANUAL(0.1), HYBRID(0.5),  AUTOMATIC(1.);
 
 	private double val;
 	
