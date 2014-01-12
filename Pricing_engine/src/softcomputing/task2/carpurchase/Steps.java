@@ -49,7 +49,20 @@ public class Steps {
 		}
 
 		Collections.sort(cars);
-		return cars;
+		
+		List<Car> newList = new ArrayList<Car>();
+		for (int i = 0; i < cars.size(); i++) {
+			if (fulfills(cars.get(i), userRequest)) {
+				newList.add(cars.get(i));
+			}
+		}
+		return newList;
+	}
+
+	private boolean fulfills(Car car, Step1UserRequest userRequest) {
+		if(userRequest.getPriceMin()!=null && car.getPrice() < userRequest.getPriceMin()) return false;
+		if(userRequest.getPriceMax()!=null && car.getPrice() > userRequest.getPriceMax()) return false;
+		return true;
 	}
 
 	public List<Car> step2(List<Car> cars, Step2UserRequest userRequest) {

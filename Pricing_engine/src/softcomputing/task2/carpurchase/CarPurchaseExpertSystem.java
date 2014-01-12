@@ -29,7 +29,7 @@ public class CarPurchaseExpertSystem {
 
 		Steps steps = new Steps();
 
-		Step1UserRequest userRequest = new Step1UserRequest(CarCriterion.PERFORMANCE, CarCriterion.COMFORT, null, CarDomainType.SPORT);
+		Step1UserRequest userRequest = new Step1UserRequest(CarCriterion.PERFORMANCE, CarCriterion.COMFORT, null, CarDomainType.SPORT,10000.,40000.);
 		List<Car> cars = steps.step1(database.getCars(), userRequest);
 
 		showCars(cars, 1);

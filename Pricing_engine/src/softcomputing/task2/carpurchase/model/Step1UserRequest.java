@@ -14,12 +14,31 @@ public class Step1UserRequest {
 	CarCriterion secondCriterion;
 	CarCriterion thirdCriterion;
 	CarDomainType carDomainType;
-
-	public Step1UserRequest(CarCriterion firstCriterion, CarCriterion secondCriterion, CarCriterion thirdCriterion, CarDomainType carDomainType) {
+	Double priceMin;
+	Double priceMax;
+	public Step1UserRequest(CarCriterion firstCriterion, CarCriterion secondCriterion, CarCriterion thirdCriterion, CarDomainType carDomainType,Double priceMin,Double priceMax) {
 		this.firstCriterion = firstCriterion;
 		this.secondCriterion = secondCriterion;
 		this.thirdCriterion = thirdCriterion;
 		this.carDomainType = carDomainType;
+		this.priceMin = priceMin;
+		this.priceMax = priceMax;
+	}
+
+	public Double getPriceMin() {
+		return priceMin;
+	}
+
+	public void setPriceMin(Double priceMin) {
+		this.priceMin = priceMin;
+	}
+
+	public Double getPriceMax() {
+		return priceMax;
+	}
+
+	public void setPriceMax(Double priceMax) {
+		this.priceMax = priceMax;
 	}
 
 	public CarCriterion getFirstCriterion() {
