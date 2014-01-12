@@ -7,13 +7,13 @@ package softcomputing.task2.carpurchase.model;
 /**
  * Model for user request
  */
-public class UserRequest {
+public class Step1UserRequest {
 	CarCriterion firstCriterion;
 	CarCriterion secondCriterion;
 	CarCriterion thirdCriterion;
 	CarDomainType carDomainType;
 	
-	public UserRequest(CarCriterion firstCriterion, CarCriterion secondCriterion, CarCriterion thirdCriterion, CarDomainType carDomainType) {
+	public Step1UserRequest(CarCriterion firstCriterion, CarCriterion secondCriterion, CarCriterion thirdCriterion, CarDomainType carDomainType) {
 		this.firstCriterion = firstCriterion;
 		this.secondCriterion = secondCriterion;
 		this.thirdCriterion = thirdCriterion;
