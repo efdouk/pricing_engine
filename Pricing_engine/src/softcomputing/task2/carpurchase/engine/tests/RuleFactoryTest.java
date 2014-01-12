@@ -4,7 +4,7 @@
  */
 package softcomputing.task2.carpurchase.engine.tests;
 
-import softcomputing.task2.carpurchase.engine.rules.RuleFactory;
+import softcomputing.task2.carpurchase.engine.RuleFactory;
 
 public class RuleFactoryTest {
 

@@ -6,9 +6,6 @@ package softcomputing.task2.carpurchase.engine.rules;
 
 import softcomputing.task2.carpurchase.engine.api.Rule;
 
-/**
- * 
- */
 public class ZeroRule implements Rule {
 
 	@Override

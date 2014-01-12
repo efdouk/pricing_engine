@@ -16,9 +16,9 @@ import java.util.Set;
  * 
  * 
  */
-public class Car {
+public class Car implements Comparable<Car> {
 
-	private double evaluation;
+	private Double evaluation=0.;
 
 	// car identification
 	private CarBrand brand;
@@ -232,11 +232,11 @@ public class Car {
 		this.features = features;
 	}
 
-	public double getEvaluation() {
+	public Double getEvaluation() {
 		return evaluation;
 	}
 
-	public void setEvaluation(double evaluation) {
+	public void setEvaluation(Double evaluation) {
 		this.evaluation = evaluation;
 	}
 
@@ -267,5 +267,10 @@ public class Car {
 		public double val(double val) {
 			return (val-from)/(to-from);
 		}
+	}
+
+	@Override
+	public int compareTo(Car o) {
+		return o.getEvaluation().compareTo(getEvaluation());
 	}
 }

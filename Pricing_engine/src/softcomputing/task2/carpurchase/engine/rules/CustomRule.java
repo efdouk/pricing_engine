@@ -16,6 +16,10 @@ public class CustomRule implements Rule {
 	Map<Double, Double> valueMap = new HashMap<Double, Double>();
 
 	public CustomRule(String customRules) {
+		parseValueMap(customRules);
+	}
+
+	private void parseValueMap(String customRules) {
 		Pattern pattern = Pattern.compile("([\\d.]+)->([\\d.]+)");
 		Matcher m = pattern.matcher(customRules);
 
@@ -26,8 +30,8 @@ public class CustomRule implements Rule {
 
 	@Override
 	public double eval(double in) {
-		if(valueMap.containsKey(in)) return valueMap.get(in);
+		if (valueMap.containsKey(in))
+			return valueMap.get(in);
 		return 0;
 	}
-
 }

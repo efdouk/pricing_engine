@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import softcomputing.task2.carpurchase.engine.RuleCompiler;
+import softcomputing.task2.carpurchase.engine.RuleFactory;
 import softcomputing.task2.carpurchase.engine.api.Rule;
-import softcomputing.task2.carpurchase.engine.rules.RuleFactory;
 
 public class RuleCompilerTest {
 	
@@ -25,6 +25,7 @@ public class RuleCompilerTest {
 		List<Double> values=new ArrayList<Double>();
 		values.add(0.75);
 		System.out.println(RuleCompiler.compile(rules, values));
+		simpleTest();
 	}
 
 	private static void simpleTest() {

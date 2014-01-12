@@ -41,8 +41,5 @@ public class UserRequest {
 	public CarDomainType getCarDomainType() {
 		return carDomainType;
 	}
-	public String getTest() {return "test";}
-
-	
 	
 }
