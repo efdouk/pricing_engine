@@ -4,6 +4,8 @@
  */
 package softcomputing.task2.carpurchase.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,26 +18,28 @@ import java.util.Set;
  */
 public class Car {
 
+	private double evaluation;
+
 	// car identification
 	private CarBrand brand;
 	private String name;
-	private int yearOfProduction;	
-	private int kilometersOnTheGauge;
-	
+	private Double yearOfProduction;
+	private Double kilometersOnTheGauge;
+
 	// car properties
 	private Set<CarType> type;
-	private Integer doorCount;
-	private Double averageBurning;
+	private Double doorCount;
+	private Double averageBurningCostPer100km;
 	private Double engineCapacity;
 	private FuelType fuel;
 	private Double price;
 	private Double luggageCapacity;
 	private Transmission transmission;
-	
-	//car features
+
+	// car features
 	private Set<CarFeature> features;
 
-	public Car(CarBrand brand, String name, int yearOfProduction, int kilometersOnTheGauge, Set<CarType> type, Integer doorCount,
+	public Car(CarBrand brand, String name, Double yearOfProduction, Double kilometersOnTheGauge, Set<CarType> type, Double doorCount,
 			Double averageBurning, Double engineCapacity, FuelType fuel, Double price, Double luggageCapacity,
 			Transmission transmission, Set<CarFeature> features) {
 		this.brand = brand;
@@ -44,7 +48,7 @@ public class Car {
 		this.kilometersOnTheGauge = kilometersOnTheGauge;
 		this.type = type;
 		this.doorCount = doorCount;
-		this.averageBurning = averageBurning;
+		this.averageBurningCostPer100km = averageBurning;
 		this.engineCapacity = engineCapacity;
 		this.fuel = fuel;
 		this.price = price;
@@ -52,26 +56,7 @@ public class Car {
 		this.transmission = transmission;
 		this.features = features;
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((averageBurning == null) ? 0 : averageBurning.hashCode());
-		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
-		result = prime * result + ((doorCount == null) ? 0 : doorCount.hashCode());
-		result = prime * result + ((engineCapacity == null) ? 0 : engineCapacity.hashCode());
-		result = prime * result + ((features == null) ? 0 : features.hashCode());
-		result = prime * result + ((fuel == null) ? 0 : fuel.hashCode());
-		result = prime * result + kilometersOnTheGauge;
-		result = prime * result + ((luggageCapacity == null) ? 0 : luggageCapacity.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((transmission == null) ? 0 : transmission.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + yearOfProduction;
-		return result;
-	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -82,10 +67,10 @@ public class Car {
 		if (getClass() != obj.getClass())
 			return false;
 		Car other = (Car) obj;
-		if (averageBurning == null) {
-			if (other.averageBurning != null)
+		if (averageBurningCostPer100km == null) {
+			if (other.averageBurningCostPer100km != null)
 				return false;
-		} else if (!averageBurning.equals(other.averageBurning))
+		} else if (!averageBurningCostPer100km.equals(other.averageBurningCostPer100km))
 			return false;
 		if (brand != other.brand)
 			return false;
@@ -138,9 +123,149 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [brand=" + brand + ", name=" + name + ", yearOfProduction=" + yearOfProduction + ", kilometersOnTheGauge="
-				+ kilometersOnTheGauge + "km, type=" + type + ", doorCount=" + doorCount + ", averageBurning=" + averageBurning
-				+ "l/100km, engineCapacity=" + engineCapacity + "l, fuel=" + fuel + ", price=" + price + "zl, luggageCapacity="
-				+ luggageCapacity + "l, transmission=" + transmission + ", features=" + features + "]";
+				+ kilometersOnTheGauge + "km, type=" + type + ", doorCount=" + doorCount + ", averageBurningCostPer100km="
+				+ averageBurningCostPer100km + "zl, engineCapacity=" + engineCapacity + "l, fuel=" + fuel + ", price=" + price
+				+ "zl, luggageCapacity=" + luggageCapacity + "l, transmission=" + transmission + ", features=" + features + "]";
 	}
 
+	public CarBrand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(CarBrand brand) {
+		this.brand = brand;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getYearOfProduction() {
+		return yearOfProduction;
+	}
+
+	public void setYearOfProduction(Double yearOfProduction) {
+		this.yearOfProduction = yearOfProduction;
+	}
+
+	public Double getKilometersOnTheGauge() {
+		return kilometersOnTheGauge;
+	}
+
+	public void setKilometersOnTheGauge(Double kilometersOnTheGauge) {
+		this.kilometersOnTheGauge = kilometersOnTheGauge;
+	}
+
+	public Set<CarType> getType() {
+		return type;
+	}
+
+	public void setType(Set<CarType> type) {
+		this.type = type;
+	}
+
+	public Double getDoorCount() {
+		return doorCount;
+	}
+
+	public void setDoorCount(Double doorCount) {
+		this.doorCount = doorCount;
+	}
+
+	public Double getAverageBurningCostPer100km() {
+		return averageBurningCostPer100km;
+	}
+
+	public void setAverageBurningCostPer100km(Double averageBurning) {
+		this.averageBurningCostPer100km = averageBurning;
+	}
+
+	public Double getEngineCapacity() {
+		return engineCapacity;
+	}
+
+	public void setEngineCapacity(Double engineCapacity) {
+		this.engineCapacity = engineCapacity;
+	}
+
+	public FuelType getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(FuelType fuel) {
+		this.fuel = fuel;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Double getLuggageCapacity() {
+		return luggageCapacity;
+	}
+
+	public void setLuggageCapacity(Double luggageCapacity) {
+		this.luggageCapacity = luggageCapacity;
+	}
+
+	public Transmission getTransmission() {
+		return transmission;
+	}
+
+	public void setTransmission(Transmission transmission) {
+		this.transmission = transmission;
+	}
+
+	public Set<CarFeature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Set<CarFeature> features) {
+		this.features = features;
+	}
+
+	public double getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(double evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public List<Double> getNormalizedValues() {
+		List<Double> values = new ArrayList<Double>();
+		values.add(new Range(1,6).val(this.doorCount));
+		values.add(new Range(0.1,200).val(averageBurningCostPer100km));
+		values.add(new Range(0.5,10).val(this.engineCapacity));
+		values.add(this.fuel.getNormalized());
+		values.add(new Range(1000,200000).val(this.price));
+		values.add(new Range(0.1,600).val(luggageCapacity));
+		values.add(this.transmission.getNormalized());
+		values.add(new Range(1960,2014).val(yearOfProduction));
+		values.add(new Range(0,1000000).val(kilometersOnTheGauge));
+		return values;
+	}
+
+	static class Range {
+		private double from;
+		private double to;
+		public Range(double from,double to) {
+			this.from = from;
+			this.to = to;
+			
+		}
+	
+		
+		public double val(double val) {
+			return (val-from)/(to-from);
+		}
+	}
 }

@@ -15,6 +15,7 @@ import softcomputing.task2.carpurchase.datasource.MockDatabase;
 import softcomputing.task2.carpurchase.model.Car;
 import softcomputing.task2.carpurchase.model.CarCriterion;
 import softcomputing.task2.carpurchase.model.CarDomainType;
+import softcomputing.task2.carpurchase.model.CarEvaluation;
 import softcomputing.task2.carpurchase.model.UserRequest;
 
 /**
@@ -25,21 +26,14 @@ public class CarPurchase {
 	public static final Database db = new MockDatabase();
 	public static final Rete engine = new Rete();
 
-	public static void main(String args[]) {
-		try {
-			//initialize engine
-			engine.reset();
-			engine.batch("carpurchase.clp");
-			engine.addAll(db.getCars());
-			WorkingMemoryMarker marker = engine.mark();
-			engine.resetToMark(marker);
-			
-			//input request
-			engine.add(new UserRequest(CarCriterion.COMFORT, CarCriterion.QUALITY, null, CarDomainType.LUXURY));
-		 	engine.run();
+	public static void masin(String args[]) {
+		try { 
+			//initialize engine 
+			prepareEngine();
+			engine.run();
 			
 			//display results 
-			Iterator<?> carsSuggested = engine.getObjects(new Filter.ByClass(Car.class));
+			Iterator<?> carsSuggested = engine.getObjects(new Filter.ByClass(CarEvaluation.class));
 			System.out.println("The system suggests you the following cars:");
 			
 			while(carsSuggested.hasNext())
@@ -62,5 +56,16 @@ public class CarPurchase {
 			System.out.println("There was an exception while running engine.");
 			e.printStackTrace();
 		}
+	}
+
+	private static void prepareEngine() throws JessException {
+		engine.reset();  
+		engine.batch("carpurchase.clp");
+		engine.addAll(db.getCars()); 
+		WorkingMemoryMarker marker = engine.mark();
+		engine.resetToMark(marker);
+		
+		//input request
+		engine.add(new UserRequest(CarCriterion.COMFORT, CarCriterion.QUALITY, null, CarDomainType.FAMILY));
 	}
 }

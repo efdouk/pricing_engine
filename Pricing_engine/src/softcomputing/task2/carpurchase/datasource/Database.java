@@ -10,7 +10,7 @@ import softcomputing.task2.carpurchase.model.Car;
 
 /**
  * 
- */
+ */ 
 public interface Database {
 
 	public abstract void addCar(Car car);

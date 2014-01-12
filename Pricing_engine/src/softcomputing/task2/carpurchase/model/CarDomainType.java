@@ -7,6 +7,6 @@ package softcomputing.task2.carpurchase.model;
 /**
  * 
  */
-public enum CarDomainType {
-	FAMILY, SPORT, CASUAL, EXTREME, BUSINESS, LUXURY;
+public enum CarDomainType {  
+	FAMILY, SPORT, CASUAL, EXTREME, BUSINESS, LUXURY; 
 }

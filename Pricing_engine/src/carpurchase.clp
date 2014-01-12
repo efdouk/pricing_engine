@@ -18,19 +18,45 @@
 (deftemplate FuelType    (declare (from-class FuelType)))
 (deftemplate Transmission    (declare (from-class Transmission)))
 
-;; Simple method that get all cars from database and appends it to the result
+;; gloval evaluation value
+;; (defglobal ?*eval* = 0)
 
-(defrule append-all-cars-to-output
-    "Test method that append all cars to output"
-    =>
-    (add Car)
+
+;; CAR DOMAIN TYPES
+
+;; Family
+
+(defrule door-number
+	"Add rating for door-number"
+	
+	(UserRequest
+		(carDomainType ?X&:(eq ?X (CarDomainType.FAMILY)))
+	)
+	(Car
+		(doorCount ?Y&:(> ?Y 11))
+	)
+	(Car (OBJECT ?object-car))
+	=>
+	(add (new CarEvaluation ?object-car 1.0))
 )
 
-(defrule doggie-approves-when-user-wants-luxury
+
+
+
+;; tests
+(defrule append-all-cars-to-output
+    "Test method that append all cars to output"
+    (Car (brand ?X&:(eq ?X (CarBrand.FERRARI))))
+    (Car (OBJECT ?object-car))
+    =>
+    (add (new CarEvaluation ?object-car 0.0))
+)
+
+(defrule doggie-approves-when-user-wants-luxurytor
 	"Adds a string output when the user requests for a luxury car type"
 	(UserRequest
 		(carDomainType ?X&:(eq ?X (CarDomainType.LUXURY)))
 	)
 	=>
-	(add "wow that luxury, such equalsh, much add!")
+	(add "wow that luxury, such equalsh, much add!!!")
 )
