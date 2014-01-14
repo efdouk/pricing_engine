@@ -12,7 +12,7 @@ import softcomputing.task2.carpurchase.engine.api.Attributes;
  * Note that this enumeration is an attribute
  */
 public enum CarType implements Attributes<CarType> {
-	UNKNOWN, HATCHBACK, SEDAN, SPORT, LIMOUSINE, CONVERTIBLE, VAN, PICK_UP, COUPE, SUV;
+	select, HATCHBACK, SEDAN, SPORT, LIMOUSINE, CONVERTIBLE, VAN, PICK_UP, COUPE, SUV;
 
 	@Override
 	public CarType[] getAttributes() {

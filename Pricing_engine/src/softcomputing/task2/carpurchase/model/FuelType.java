@@ -14,7 +14,7 @@ package softcomputing.task2.carpurchase.model;
  * going to be.
  */
 public enum FuelType {
-	UNKNOWN(0), GASOLINE(1.), LPG(0.75), DIESEL(0.4), HYBRID(0.2), ELECTRIC(0.01);
+	select(0), GASOLINE(1.), LPG(0.75), DIESEL(0.4), HYBRID(0.2), ELECTRIC(0.01);
 
 	private double val;
 

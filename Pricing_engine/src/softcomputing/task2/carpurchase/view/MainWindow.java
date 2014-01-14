@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -19,6 +20,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +53,6 @@ import softcomputing.task2.carpurchase.model.Step2UserRequest;
 import softcomputing.task2.carpurchase.model.Step3UserRequest;
 
 import javax.swing.JTable;
-import javax.swing.JScrollPane;
 
 
 
@@ -58,33 +60,34 @@ public class MainWindow extends CarPurchaseExpertSystem {
 
 	private JFrame frmCarPurchase;
 
-	private CarCriterion c1,c2,c3;
-	private CarDomainType d1;
+	private CarCriterion c1=CarCriterion.COMFORT,c2,c3;
+	private CarDomainType d1=CarDomainType.FAMILY;
 	private CarType ct;
-	private Double minBudget, maxBudget;
-	private Double minBurning, maxBurning;
-	private Double minKm, maxKm;
-	private Double minCapacity, maxCapacity;
+	private Double minBudget=1000., maxBudget= 50000.;
+	private Double minBurning= 0.1, maxBurning = 60.;
+	private Double minKm = 0., maxKm=150000.;
+	private Double minCapacity=0.5, maxCapacity= 1.4;
 	private FuelType fuelTp;
-	private Double minYear, maxYear;
+	private Double minYear=1960., maxYear=1980.;
 	private CarBrand cb;
 	private CarFeature cf;
-	
-	List<Car> List1,List2,List3;
-	
-	
+	private JTable table;
+		
+		
 	Database database = new MockDatabase();
 	Steps steps = new Steps();
-	private JTable table;
-	private CarTableModel model;
-	Set<CarFeature> features;
+	
+	Set<CarFeature> features = new HashSet<CarFeature>();
+	List<Car> Cars = database.getCars();
+	CarTableModel model = new CarTableModel(Cars);
+	List<Car> List1,List2,List3;
 
 	//Methods for Handling UserRequest
 	
-	private List<Car> handleGUIStep1UserRequest(Step1UserRequest userRequest) {
+	private List<Car> handleGUIStep1UserRequest(Step1UserRequest userRequest, List<Car> AllCars) {
 		
 		
-		List<Car> cars = steps.step1(database.getCars(), userRequest);
+		List<Car> cars = steps.step1(AllCars, userRequest);
 		return cars;
 	}
 	
@@ -103,19 +106,19 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	
 	private CarCriterion carCriterionParse(String a) {
 		
-		if (a.equals(CarCriterion.COMFORT)) {
+		if (a.equals(CarCriterion.COMFORT.toString())) {
 			return CarCriterion.COMFORT;
 		}else
-		if (a.equals(CarCriterion.ECONOMY)) {
+		if (a.equals(CarCriterion.ECONOMY.toString())) {
 			return CarCriterion.ECONOMY;
 		}else
-		if (a.equals(CarCriterion.HANDLING)) {
+		if (a.equals(CarCriterion.HANDLING.toString())) {
 			return CarCriterion.HANDLING;
 		}else
-		if (a.equals(CarCriterion.PERFORMANCE)) {
+		if (a.equals(CarCriterion.PERFORMANCE.toString())) {
 			return CarCriterion.PERFORMANCE;
 		}else
-		if (a.equals(CarCriterion.QUALITY)) {
+		if (a.equals(CarCriterion.QUALITY.toString())) {
 			return CarCriterion.QUALITY;
 		}else {
 			return null;
@@ -124,31 +127,31 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	
 	private CarFeature carFeatureParse(String a) {
 		
-		if (a.equals(CarFeature.ABS)) {
+		if (a.equals(CarFeature.ABS.toString())) {
 			return CarFeature.ABS;
 		}else
-		if (a.equals(CarFeature.ALARM)) {
+		if (a.equals(CarFeature.ALARM.toString())) {
 			return CarFeature.ALARM;
 		}else
-		if (a.equals(CarFeature.CAR_AUDIO)) {
+		if (a.equals(CarFeature.CAR_AUDIO.toString())) {
 			return CarFeature.CAR_AUDIO;
 		}else
-		if (a.equals(CarFeature.CLIMA)) {
+		if (a.equals(CarFeature.CLIMA.toString())) {
 			return CarFeature.CLIMA;
 		}else
-		if (a.equals(CarFeature.ELECTRICAL_MIRRORS)) {
+		if (a.equals(CarFeature.ELECTRICAL_MIRRORS.toString())) {
 			return CarFeature.ELECTRICAL_MIRRORS;
 		}else
-		if (a.equals(CarFeature.ELECTRICAL_WINDOWS)) {
+		if (a.equals(CarFeature.ELECTRICAL_WINDOWS.toString())) {
 			return CarFeature.ELECTRICAL_WINDOWS;
 		}else
-		if (a.equals(CarFeature.GPS)) {
+		if (a.equals(CarFeature.GPS.toString())) {
 				return CarFeature.GPS;
 		}else
-		if (a.equals(CarFeature.HYDRAULIC_SUSPENSION)) {
+		if (a.equals(CarFeature.HYDRAULIC_SUSPENSION.toString())) {
 			return CarFeature.HYDRAULIC_SUSPENSION;
 		}else			
-		if (a.equals(CarFeature.COMPUTER)) {
+		if (a.equals(CarFeature.COMPUTER.toString())) {
 			return CarFeature.COMPUTER;
 		}else {
 		return null;
@@ -157,52 +160,52 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	
 	private CarDomainType carDomainTypeParse(String a) {
 		
-		if (a.equals(CarDomainType.BUSINESS)) {
+		if (a.equals(CarDomainType.BUSINESS.toString())) {
 			return CarDomainType.BUSINESS;
 		}else
-		if (a.equals(CarDomainType.CASUAL)) {
+		if (a.equals(CarDomainType.CASUAL.toString())) {
 			return CarDomainType.CASUAL;
 		}else
-		if (a.equals(CarDomainType.EXTREME)) {
-			return CarDomainType.EXTREME;
-		}else
-		if (a.equals(CarDomainType.FAMILY)) {
+		if (a.equals(CarDomainType.FAMILY.toString())) {
 			return CarDomainType.FAMILY;
 		}else
-		if (a.equals(CarDomainType.LUXURY)) {
+		if (a.equals(CarDomainType.LUXURY.toString())) {
 			return CarDomainType.LUXURY;
 		}else
-		if (a.equals(CarDomainType.SPORT)) {
+		if (a.equals(CarDomainType.SPORT.toString())) {
 			return CarDomainType.SPORT;
 		}else {
+		if (a.equals(CarDomainType.EXTREME.toString())) {
+			return CarDomainType.EXTREME;
+		}else
 			return null;
 		}
 	}
 	
 	private CarType carSizeParse(String a) {
 		
-		if (a.equals(CarType.CONVERTIBLE)) {
+		if (a.equals(CarType.CONVERTIBLE.toString())) {
 			return CarType.CONVERTIBLE;
 		}else
-		if (a.equals(CarType.COUPE)) {
+		if (a.equals(CarType.COUPE.toString())) {
 			return CarType.COUPE;
 		}else
-		if (a.equals(CarType.HATCHBACK)) {
+		if (a.equals(CarType.HATCHBACK.toString())) {
 			return CarType.HATCHBACK;
 		}else
-		if (a.equals(CarType.LIMOUSINE)) {
+		if (a.equals(CarType.LIMOUSINE.toString())) {
 			return CarType.LIMOUSINE;
 		}else
-		if (a.equals(CarType.PICK_UP)) {
+		if (a.equals(CarType.PICK_UP.toString())) {
 			return CarType.PICK_UP;
 		}else
-		if (a.equals(CarType.SUV)) {
+		if (a.equals(CarType.SUV.toString())) {
 			return CarType.SUV;
 		}else
-		if (a.equals(CarType.VAN)) {
+		if (a.equals(CarType.VAN.toString())) {
 			return CarType.VAN;
 		}else			
-		if (a.equals(CarType.SPORT)) {
+		if (a.equals(CarType.SPORT.toString())) {
 			return CarType.SPORT;
 		}else {
 			return null;
@@ -211,19 +214,19 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	
 	private FuelType fuelTypeParse(String a) {
 		
-		if (a.equals(FuelType.DIESEL)) {
+		if (a.equals(FuelType.DIESEL.toString())) {
 			return FuelType.DIESEL;
 		}else
-		if (a.equals(FuelType.ELECTRIC)) {
+		if (a.equals(FuelType.ELECTRIC.toString())) {
 			return FuelType.ELECTRIC;
 		}else
-		if (a.equals(FuelType.GASOLINE)) {
+		if (a.equals(FuelType.GASOLINE.toString())) {
 			return FuelType.GASOLINE;
 		}else
-		if (a.equals(FuelType.HYBRID)) {
+		if (a.equals(FuelType.HYBRID.toString())) {
 			return FuelType.HYBRID;
 		}else
-		if (a.equals(FuelType.LPG)) {
+		if (a.equals(FuelType.LPG.toString())) {
 			return FuelType.LPG;
 		}else {
 			return null;
@@ -232,19 +235,19 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	
 	private CarBrand carBrandParse(String a) {
 		
-		if (a.equals(CarBrand.FERRARI)) {
+		if (a.equals(CarBrand.FERRARI.toString())) {
 			return CarBrand.FERRARI;
 		}else
-		if (a.equals(CarBrand.JEEP)) {
+		if (a.equals(CarBrand.JEEP.toString())) {
 			return CarBrand.JEEP;
 		}else
-		if (a.equals(CarBrand.MERCEDES)) {
+		if (a.equals(CarBrand.MERCEDES.toString())) {
 			return CarBrand.MERCEDES;
 		}else
-		if (a.equals(CarBrand.OPEL)) {
+		if (a.equals(CarBrand.OPEL.toString())) {
 			return CarBrand.OPEL;
 		}else
-		if (a.equals(CarBrand.SKODA)) {
+		if (a.equals(CarBrand.SKODA.toString())) {
 			return CarBrand.SKODA;
 		}else {
 			return null;
@@ -255,20 +258,33 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	// Methods to parse the (string) range values of the GUI 
 	
 	private Double minValueParse(String a) {
-		Pattern p = Pattern.compile("-?\\d+");
+		Pattern p = Pattern.compile("\\d+\\.?\\d*");
 		Matcher m = p.matcher(a);
 		m.find(); 
-		System.out.println(m.group());
+		//System.out.println(m.group());
 		return Double.parseDouble(m.group()); // Returns the first number
 	}
 	
 	private Double maxValueParse(String a) {
-		Pattern p = Pattern.compile("-?\\d+");
+		Pattern p = Pattern.compile("\\d+\\.?\\d*");
 		Matcher m = p.matcher(a);
 		m.find(); 
 		m.find(); 
-		System.out.println(m.group());
+		//System.out.println(m.group());
 		return Double.parseDouble(m.group());// Returns the second number
+	}
+	
+	// Method to sort the lists 
+	
+	private void ListSorterByEvalution(List<Car> Cars) {
+		
+		Collections.sort(Cars, new Comparator<Car>(){
+		     public int compare(Car o1, Car o2){
+		         if(o1.getEvaluation() == o2.getEvaluation())
+		             return 0;
+		         return o1.getEvaluation() > o2.getEvaluation() ? -1 : 1;
+		     }
+		});
 	}
 	
 	/**
@@ -327,6 +343,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				.add(panelResults, "name_95310782296790");
 		panelResults.setLayout(null);
 		panelResults.setVisible(false);
+		
 
 			
 		
@@ -348,9 +365,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 					String criterion1 = new String("" + ((JComboBox)
 					e.getSource()).getSelectedItem());
 					c1 = carCriterionParse(criterion1);
-
-				}
-							
+				}					
 			}
 		});
 		cmbBx_Criterion1.setModel(new DefaultComboBoxModel(CarCriterion
@@ -394,10 +409,10 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		final JComboBox cmbBx_DomainType = new JComboBox();
 		cmbBx_DomainType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cmbBx_DomainType.getSelectedIndex() != 0) { //Not UNKNOWN
+				
 				String carDomainType = new String("" + ((JComboBox) e.getSource()).getSelectedItem());
 				d1 = carDomainTypeParse(carDomainType);
-			}
+			
 			}
 		});
 		cmbBx_DomainType.setModel(new DefaultComboBoxModel(CarDomainType
@@ -420,6 +435,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 				
 		final JRadioButton rdbtnLowCost = new JRadioButton("1000 - 50000");
+		rdbtnLowCost.setSelected(true);
 		rdbtnLowCost.setBounds(372, 70, 120, 23);
 		rdbtnLowCost.addActionListener(actionlistener);
 		panelStep1.add(rdbtnLowCost);
@@ -450,7 +466,8 @@ public class MainWindow extends CarPurchaseExpertSystem {
 			public void actionPerformed(ActionEvent e) {
 								
 				Step1UserRequest userRequest = new Step1UserRequest(c1, c2, c3, d1, minBudget ,maxBudget);
-				List1 = handleGUIStep1UserRequest(userRequest);
+				List1 = handleGUIStep1UserRequest(userRequest,Cars);
+				ListSorterByEvalution(List1); // Sorting
 				model = new CarTableModel(List1);
 				
 				panelStep2.setVisible(true);
@@ -465,7 +482,8 @@ public class MainWindow extends CarPurchaseExpertSystem {
 			public void actionPerformed(ActionEvent e) {
 				
 				Step1UserRequest userRequest = new Step1UserRequest(c1, c2, c3, d1, minBudget ,maxBudget);
-				List1 = handleGUIStep1UserRequest(userRequest);
+				List1 = handleGUIStep1UserRequest(userRequest,Cars);
+				ListSorterByEvalution(List1); // Sorting
 				model = new CarTableModel(List1);
 				
 				panelResults.setVisible(true);
@@ -487,7 +505,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		panelStep2.add(lblDescription_1);
 
 		JLabel lblAverageBurning = new JLabel("Average burning cost per 100 km:");
-		lblAverageBurning.setBounds(10, 49, 182, 14);
+		lblAverageBurning.setBounds(10, 49, 200, 14);
 		panelStep2.add(lblAverageBurning);
 
 		final ActionListener actionlistener2 = new ActionListener() {
@@ -500,6 +518,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 				
 		final JRadioButton rdbtnLowBurn = new JRadioButton("0.1 - 60");
+		rdbtnLowBurn.setSelected(true);
 		rdbtnLowBurn.setBounds(67, 80, 109, 23);
 		rdbtnLowBurn.addActionListener(actionlistener2);
 		panelStep2.add(rdbtnLowBurn);
@@ -537,7 +556,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		panelStep2.add(cmbBxCarType);
 
 		JLabel lblCarHistory = new JLabel("Car history(km):");
-		lblCarHistory.setBounds(277, 49, 85, 14);
+		lblCarHistory.setBounds(277, 49, 102, 14);
 		panelStep2.add(lblCarHistory);
 
 		final ActionListener actionlistener3 = new ActionListener() {
@@ -550,6 +569,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 		
 		final JRadioButton rdbtnNew = new JRadioButton("0 - 15000");
+		rdbtnNew.setSelected(true);
 		rdbtnNew.setBounds(312, 80, 109, 23);
 		rdbtnNew.addActionListener(actionlistener3);
 		panelStep2.add(rdbtnNew);
@@ -584,6 +604,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 		
 		final JRadioButton rdbtnLowCapacity = new JRadioButton("0.5 - 1.4");
+		rdbtnLowCapacity.setSelected(true);
 		rdbtnLowCapacity.setBounds(277, 215, 85, 23);
 		rdbtnLowCapacity.addActionListener(actionlistener4);
 		panelStep2.add(rdbtnLowCapacity);
@@ -639,6 +660,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step2UserRequest userRequest2 = new Step2UserRequest(minBurning, maxBurning, ct, minKm, maxKm, minCapacity, maxCapacity, fuelTp);
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
+				ListSorterByEvalution(List2); // Sorting
 				model = new CarTableModel(List2);
 				
 				panelStep3.setVisible(true);
@@ -654,6 +676,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step2UserRequest userRequest2 = new Step2UserRequest(minBurning, maxBurning, ct, minKm, maxKm, minCapacity, maxCapacity, fuelTp);
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
+				ListSorterByEvalution(List2); // Sorting
 				model = new CarTableModel(List2);
 				
 				panelResults.setVisible(true);
@@ -676,12 +699,13 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		JLabel lblCarSpecialFeatures = new JLabel("Special features:");
 		lblCarSpecialFeatures.setBounds(10, 49, 107, 14);
 		panelStep3.add(lblCarSpecialFeatures);
+		features.add(CarFeature.CLIMA);
 		
 		 // We need to keep track of the selections  
         SelectionManager manager = new SelectionManager();  
         // and make the selection state available to the renderer.  
         MultiRenderer renderer = new MultiRenderer(manager); 
-               
+            
         final JComboBox cmbBxCarFeature = new JComboBox();
 		cmbBxCarFeature.setModel(new DefaultComboBoxModel(CarFeature.values()));
 		cmbBxCarFeature.setBounds(77, 75, 175, 20);
@@ -699,8 +723,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				if (cmbBxCarBrand.getSelectedIndex() != 0) { //Not UNKNOWN
 					String carBrand = new String("" + ((JComboBox) e.getSource()).getSelectedItem());
 					cb = carBrandParse(carBrand);
-					
-			}
+				}
 			}
 		});
 		cmbBxCarBrand.setModel(new DefaultComboBoxModel(CarBrand.values()));
@@ -721,6 +744,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		panelStep3.add(lblYearOfProduction);
 		
 		final JRadioButton rdbtnAncient = new JRadioButton("1960 - 1980");
+		rdbtnAncient.setSelected(true);
 		rdbtnAncient.setBounds(441, 74, 109, 23);
 		rdbtnAncient.addActionListener(actionlistener5);
 		panelStep3.add(rdbtnAncient);
@@ -761,6 +785,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step3UserRequest userRequest3 = new Step3UserRequest(features, cb, minYear,maxYear);
 				List3 = handleGUIStep3UserRequest(userRequest3,List2);
+				ListSorterByEvalution(List3); // Sorting
 				model = new CarTableModel(List3);
 				
 				panelResults.setVisible(true);
@@ -780,20 +805,32 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCarSuggestions.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCarSuggestions.setBounds(228, 23, 104, 16);
 		panelResults.add(lblCarSuggestions);
+				
 		
-		
-		
-		table = new JTable(model);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		table = new JTable();
+		table.setModel(model);
 		table.setShowGrid(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setRowSelectionAllowed(false);
 		table.setBackground(new Color(144, 238, 144));
 		table.setBounds(78, 50, 425, 267);
-		
+
+		//panelResults.add(table);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 0, 2, 2);
+		scrollPane.setLocation(70, 50);
+		scrollPane.setSize(450, 260);
 		panelResults.add(scrollPane);
 		
+		
+		final JButton btnBack_2 = new JButton("Back");
+		btnBack_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelStep3.setVisible(true);
+				panelResults.setVisible(false);
+			}
+		});
+		btnBack_2.setBounds(379, 328, 89, 23);
+		panelResults.add(btnBack_2);
 		
 		final JButton btnStartOver = new JButton("Start over");
 		btnStartOver.addActionListener(new ActionListener() {
@@ -805,14 +842,12 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		
 		btnStartOver.setBounds(478, 328, 96, 23);
 		panelResults.add(btnStartOver);
-		
-		JButton btnBack_2 = new JButton("Back");
-		btnBack_2.setBounds(379, 328, 89, 23);
-		panelResults.add(btnBack_2);
-		
+				
 	}
 	
 
+
+	
 	/**
 	 * @author Efthymios Doukas
 	 * 
@@ -822,14 +857,16 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	public class CarTableModel extends AbstractTableModel
 	{
 	   
-	    /**
+		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 		private List<Car> CarList;
-
+		String[] columnNames = {"Rating","Brand","Name"};
+		
 	    public CarTableModel(List<Car> CarList)
 	    {
+	    	
 	        this.CarList = new ArrayList<Car>(CarList);
 	        
      	}
@@ -840,16 +877,28 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	        return CarList.size();
 	    }
 	    
-	    @Override
+	    
 	    public int getColumnCount()
 	    {
 	        return 3;
 	    }
 	    
 	    @Override
+	    public Class<?> getColumnClass(int columnIndex) {
+	        return CarList.get(0).getClass();
+	    }
+	    
+	    @Override
+	    public boolean isCellEditable(int rowIndex, int columnIndex) {
+	        return false;
+	    }
+	    
+	    @Override
 	    public Object getValueAt(int rowIndex, int columnIndex)
 	    {
-	        Car c=CarList.get(rowIndex);
+	    	Car c= CarList.get(rowIndex);
+
+	        
 	        Object[] values=new Object[]{c.getEvaluation(),c.getBrand(),c.getName()};
 	        return values[columnIndex];
 	    }
@@ -858,10 +907,13 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	    @Override
 	    public String getColumnName(int column)
 	    {
-	        String[] columnNames=new String[]{"Rating","Brand","Name"};
+	        
 	        return columnNames[column];
 	    }
 	}
+	
+	
+	
 	
 	/**
 	 * @author Efthymios Doukas
@@ -883,17 +935,18 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	        }
 	        Object item = combo.getSelectedItem();
 	        String itemName = new String("" + ((JComboBox) e.getSource()).getSelectedItem());
-	        features = new HashSet<CarFeature>();
 	        cf = carFeatureParse(itemName);
 	        
 	        // Toggle the selection state for item.  
 	        if(selectedItems.contains(item)) {  
 	            selectedItems.remove(item);
 	            strFeature.remove(itemName);
+	            System.out.println("Removed"+itemName);
 	            features.remove(cf);
 	        } else if(!nonSelectables.contains(item)) {  
 	            selectedItems.add(item);  
 	            strFeature.add(itemName);
+	            System.out.println("Added"+itemName);
 	            features.add(cf);
 	        }  
 	    }  

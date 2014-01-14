@@ -16,7 +16,7 @@ import softcomputing.task2.carpurchase.engine.api.Evaluator;
  */
 public enum CarCriterion implements Evaluable {	
 	
-	UNKNOWN(null) ,
+	select(null) ,
 	
 	COMFORT(new CarEvaluator("custom:{(5->5)},-,1,-,-,1,1,1,-", "1,0,1,1,0,0,1,0,1", "0,0,0,1,0,1,1,0,1", 1., 5., 10.)),
 
