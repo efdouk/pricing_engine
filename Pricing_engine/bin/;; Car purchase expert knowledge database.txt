@@ -1,0 +1,61 @@
+;; Car purchase expert knowledge database
+
+;; Definition of car's fixed parameters
+
+def PARAMETERS
+	doors			;; number of doors
+	burning			;; cost of driving 100km
+	engine			;; engine capacity
+	fuel			;; fuel type
+	cost			;; cost of the car
+	luggage 		;; luggage capacity
+	transmission	;; transmission type
+	year			;; year of production
+	history			;; kilometers made with the car
+end
+
+;; Car features (either has/is or not)
+
+def ATTRIBUTES
+	
+	;; features
+
+	clima
+	hydraulic_suspension
+	electrical_windshield
+	electrical_mirrors
+	abs
+	desk_computer
+	gps
+	alarm
+	car_audio
+	
+	;; types
+
+	hatchback
+	sedan
+	sport
+	limousine
+	convertible
+	van
+	pickup
+	coupe
+	suv
+end
+
+
+def EVALUATIONS
+	family			10,/10,/10,custom:{(1->1)(0.75->1)(0.4->0.1)},/2,50,1,/1,/10
+	sport			custom:{(2->1),(3->1),(5->0.8)},/1,10,custom:{(1->1,0.2->1)},
+	casual
+	extreme
+	business
+	luxury
+	comfort
+	performance
+	handling
+	economy
+	quality
+end
+
+

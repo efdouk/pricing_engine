@@ -38,6 +38,7 @@ import softcomputing.task2.carpurchase.model.CarDomainType;
 
 import javax.swing.JRadioButton;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import javax.swing.table.AbstractTableModel;
 
 import softcomputing.task2.carpurchase.model.Car;
 import softcomputing.task2.carpurchase.model.CarType;
@@ -47,6 +48,9 @@ import softcomputing.task2.carpurchase.model.CarBrand;
 import softcomputing.task2.carpurchase.model.Step1UserRequest;
 import softcomputing.task2.carpurchase.model.Step2UserRequest;
 import softcomputing.task2.carpurchase.model.Step3UserRequest;
+
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 
 
@@ -64,16 +68,21 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	private FuelType fuelTp;
 	private Double minYear, maxYear;
 	private CarBrand cb;
+	private CarFeature cf;
 	
 	List<Car> List1,List2,List3;
 	
 	
 	Database database = new MockDatabase();
 	Steps steps = new Steps();
+	private JTable table;
+	private CarTableModel model;
+	Set<CarFeature> features;
 
 	//Methods for Handling UserRequest
 	
 	private List<Car> handleGUIStep1UserRequest(Step1UserRequest userRequest) {
+		
 		
 		List<Car> cars = steps.step1(database.getCars(), userRequest);
 		return cars;
@@ -110,6 +119,39 @@ public class MainWindow extends CarPurchaseExpertSystem {
 			return CarCriterion.QUALITY;
 		}else {
 			return null;
+		}
+	}
+	
+	private CarFeature carFeatureParse(String a) {
+		
+		if (a.equals(CarFeature.ABS)) {
+			return CarFeature.ABS;
+		}else
+		if (a.equals(CarFeature.ALARM)) {
+			return CarFeature.ALARM;
+		}else
+		if (a.equals(CarFeature.CAR_AUDIO)) {
+			return CarFeature.CAR_AUDIO;
+		}else
+		if (a.equals(CarFeature.CLIMA)) {
+			return CarFeature.CLIMA;
+		}else
+		if (a.equals(CarFeature.ELECTRICAL_MIRRORS)) {
+			return CarFeature.ELECTRICAL_MIRRORS;
+		}else
+		if (a.equals(CarFeature.ELECTRICAL_WINDOWS)) {
+			return CarFeature.ELECTRICAL_WINDOWS;
+		}else
+		if (a.equals(CarFeature.GPS)) {
+				return CarFeature.GPS;
+		}else
+		if (a.equals(CarFeature.HYDRAULIC_SUSPENSION)) {
+			return CarFeature.HYDRAULIC_SUSPENSION;
+		}else			
+		if (a.equals(CarFeature.COMPUTER)) {
+			return CarFeature.COMPUTER;
+		}else {
+		return null;
 		}
 	}
 	
@@ -306,6 +348,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 					String criterion1 = new String("" + ((JComboBox)
 					e.getSource()).getSelectedItem());
 					c1 = carCriterionParse(criterion1);
+
 				}
 							
 			}
@@ -408,6 +451,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 								
 				Step1UserRequest userRequest = new Step1UserRequest(c1, c2, c3, d1, minBudget ,maxBudget);
 				List1 = handleGUIStep1UserRequest(userRequest);
+				model = new CarTableModel(List1);
 				
 				panelStep2.setVisible(true);
 				panelStep1.setVisible(false);
@@ -422,6 +466,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step1UserRequest userRequest = new Step1UserRequest(c1, c2, c3, d1, minBudget ,maxBudget);
 				List1 = handleGUIStep1UserRequest(userRequest);
+				model = new CarTableModel(List1);
 				
 				panelResults.setVisible(true);
 				panelStep1.setVisible(false);
@@ -594,6 +639,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step2UserRequest userRequest2 = new Step2UserRequest(minBurning, maxBurning, ct, minKm, maxKm, minCapacity, maxCapacity, fuelTp);
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
+				model = new CarTableModel(List2);
 				
 				panelStep3.setVisible(true);
 				panelStep2.setVisible(false);
@@ -608,6 +654,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 				Step2UserRequest userRequest2 = new Step2UserRequest(minBurning, maxBurning, ct, minKm, maxKm, minCapacity, maxCapacity, fuelTp);
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
+				model = new CarTableModel(List2);
 				
 				panelResults.setVisible(true);
 				panelStep2.setVisible(false);
@@ -712,11 +759,9 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		btnFinish_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Set<CarFeature> features = new HashSet<CarFeature>();
-				features.add(CarFeature.CLIMA);
-				features.add(CarFeature.ELECTRICAL_MIRRORS);
 				Step3UserRequest userRequest3 = new Step3UserRequest(features, cb, minYear,maxYear);
 				List3 = handleGUIStep3UserRequest(userRequest3,List2);
+				model = new CarTableModel(List3);
 				
 				panelResults.setVisible(true);
 				panelStep3.setVisible(false);
@@ -736,6 +781,20 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCarSuggestions.setBounds(228, 23, 104, 16);
 		panelResults.add(lblCarSuggestions);
 		
+		
+		
+		table = new JTable(model);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		table.setShowGrid(false);
+		table.setRowSelectionAllowed(false);
+		table.setBackground(new Color(144, 238, 144));
+		table.setBounds(78, 50, 425, 267);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 0, 2, 2);
+		panelResults.add(scrollPane);
+		
+		
 		final JButton btnStartOver = new JButton("Start over");
 		btnStartOver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -743,12 +802,66 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				panelResults.setVisible(false);
 			}
 		});
+		
 		btnStartOver.setBounds(478, 328, 96, 23);
 		panelResults.add(btnStartOver);
+		
+		JButton btnBack_2 = new JButton("Back");
+		btnBack_2.setBounds(379, 328, 89, 23);
+		panelResults.add(btnBack_2);
 		
 	}
 	
 
+	/**
+	 * @author Efthymios Doukas
+	 * 
+	 *  A class to display the list on the Results screen
+	 *
+	 */
+	public class CarTableModel extends AbstractTableModel
+	{
+	   
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private List<Car> CarList;
+
+	    public CarTableModel(List<Car> CarList)
+	    {
+	        this.CarList = new ArrayList<Car>(CarList);
+	        
+     	}
+	    
+	    @Override
+	    public int getRowCount()
+	    {
+	        return CarList.size();
+	    }
+	    
+	    @Override
+	    public int getColumnCount()
+	    {
+	        return 3;
+	    }
+	    
+	    @Override
+	    public Object getValueAt(int rowIndex, int columnIndex)
+	    {
+	        Car c=CarList.get(rowIndex);
+	        Object[] values=new Object[]{c.getEvaluation(),c.getBrand(),c.getName()};
+	        return values[columnIndex];
+	    }
+	    
+
+	    @Override
+	    public String getColumnName(int column)
+	    {
+	        String[] columnNames=new String[]{"Rating","Brand","Name"};
+	        return columnNames[column];
+	    }
+	}
 	
 	/**
 	 * @author Efthymios Doukas
@@ -760,18 +873,28 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	class SelectionManager implements ActionListener {  
 	    JComboBox combo = null;  
 	    List<Object> selectedItems = new ArrayList<Object>();   
-	    List<Object> nonSelectables = new ArrayList<Object>();  
+	    List<Object> nonSelectables = new ArrayList<Object>();
+	    List<String> strFeature = new ArrayList<String>();
 	   
+
 	    public void actionPerformed(ActionEvent e) {  
 	        if(combo == null) {  
 	            combo = (JComboBox)e.getSource();  
-	        }  
-	        Object item = combo.getSelectedItem();  
+	        }
+	        Object item = combo.getSelectedItem();
+	        String itemName = new String("" + ((JComboBox) e.getSource()).getSelectedItem());
+	        features = new HashSet<CarFeature>();
+	        cf = carFeatureParse(itemName);
+	        
 	        // Toggle the selection state for item.  
 	        if(selectedItems.contains(item)) {  
-	            selectedItems.remove(item);  
+	            selectedItems.remove(item);
+	            strFeature.remove(itemName);
+	            features.remove(cf);
 	        } else if(!nonSelectables.contains(item)) {  
 	            selectedItems.add(item);  
+	            strFeature.add(itemName);
+	            features.add(cf);
 	        }  
 	    }  
 	   
