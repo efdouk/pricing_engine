@@ -15,6 +15,8 @@ import softcomputing.task2.carpurchase.engine.api.Evaluator;
  * evaluator attached in the constructor.
  */
 public enum CarDomainType implements Evaluable {
+	
+	UNKNOWN(null),
 
 	FAMILY(new CarEvaluator("40,/20,/10,custom:{(1->1)(0.75->1)(0.4->0.1)},/5,50,1,/1,/10", "1,0,0,0,1,1,1,1,1", "0,1,0,0,0,1,0,0,1", 1., 5., 10.)),
 

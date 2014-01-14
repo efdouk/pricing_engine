@@ -4,7 +4,6 @@
  */
 package softcomputing.task2.carpurchase.model;
 
-import java.util.Set;
 
 /**
  * Second user request step
@@ -17,9 +16,9 @@ public class Step2UserRequest {
 	Double kilometersMax;
 	Double capacityMin;
 	Double capacityMax;
-	Set<FuelType> fuelType;
+	FuelType fuelType;
 
-	public Step2UserRequest(Double burningMin, Double burningMax, CarType carType, Double kilometersMin, Double kilometersMax, Double capacityMin, Double capacityMax, Set<FuelType> fuelType) {
+	public Step2UserRequest(Double burningMin, Double burningMax, CarType carType, Double kilometersMin, Double kilometersMax, Double capacityMin, Double capacityMax, FuelType fuelType) {
 		this.burningMin = burningMin;
 		this.burningMax = burningMax;
 		this.carType = carType;
@@ -86,11 +85,11 @@ public class Step2UserRequest {
 		this.capacityMax = capacityMax;
 	}
 
-	public Set<FuelType> getFuelType() {
+	public FuelType getFuelType() {
 		return fuelType;
 	}
 
-	public void setFuelType(Set<FuelType> fuelType) {
+	public void setFuelType(FuelType fuelType) {
 		this.fuelType = fuelType;
 	}
 

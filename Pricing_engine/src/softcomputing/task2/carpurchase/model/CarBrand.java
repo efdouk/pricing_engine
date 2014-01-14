@@ -8,5 +8,5 @@ package softcomputing.task2.carpurchase.model;
  * Enumeration of car brands
  */
 public enum CarBrand { 
-	OPEL, MERCEDES, JEEP, FERRARI, SKODA 
+	UNKNOWN, OPEL, MERCEDES, JEEP, FERRARI, SKODA 
 }

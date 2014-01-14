@@ -14,7 +14,10 @@ import softcomputing.task2.carpurchase.engine.api.Evaluator;
  * note that this class is evaluable, which means that each carCriterion has own
  * evaluator, which parameters are defined in the constructor
  */
-public enum CarCriterion implements Evaluable {
+public enum CarCriterion implements Evaluable {	
+	
+	UNKNOWN(null) ,
+	
 	COMFORT(new CarEvaluator("custom:{(5->5)},-,1,-,-,1,1,1,-", "1,0,1,1,0,0,1,0,1", "0,0,0,1,0,1,1,0,1", 1., 5., 10.)),
 
 	PERFORMANCE(new CarEvaluator("-,1,10,-,-,-,1,1,1", "0,0,0,0,0,1,0,0,0", "0,0,1,0,1,0,0,0,1", 1., 5., 10.)),

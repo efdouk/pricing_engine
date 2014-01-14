@@ -4,6 +4,8 @@
  */
 package softcomputing.task2.carpurchase.model;
 
+
+
 /**
  * Type of fuel for a car
  * 
@@ -12,7 +14,7 @@ package softcomputing.task2.carpurchase.model;
  * going to be.
  */
 public enum FuelType {
-	GASOLINE(1.), LPG(0.75), DIESEL(0.4), HYBRID(0.2), ELECTRIC(0.01);
+	UNKNOWN(0), GASOLINE(1.), LPG(0.75), DIESEL(0.4), HYBRID(0.2), ELECTRIC(0.01);
 
 	private double val;
 
@@ -23,4 +25,13 @@ public enum FuelType {
 	public Double getNormalized() {
 		return val;
 	}
+	
+
+	public boolean contains(FuelType fuelType) {
+		if (this==fuelType) {
+			return true;
+		}
+		return false;
+	}
+
 }
