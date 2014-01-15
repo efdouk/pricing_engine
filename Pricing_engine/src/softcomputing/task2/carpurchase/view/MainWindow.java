@@ -469,7 +469,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				List1 = handleGUIStep1UserRequest(userRequest,Cars);
 				ListSorterByEvalution(List1); // Sorting
 				model = new CarTableModel(List1);
-				
+				table.setModel(model);
 				panelStep2.setVisible(true);
 				panelStep1.setVisible(false);
 			}
@@ -485,7 +485,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				List1 = handleGUIStep1UserRequest(userRequest,Cars);
 				ListSorterByEvalution(List1); // Sorting
 				model = new CarTableModel(List1);
-				
+				table.setModel(model);
 				panelResults.setVisible(true);
 				panelStep1.setVisible(false);
 			}
@@ -662,7 +662,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
 				ListSorterByEvalution(List2); // Sorting
 				model = new CarTableModel(List2);
-				
+				table.setModel(model);
 				panelStep3.setVisible(true);
 				panelStep2.setVisible(false);
 			}
@@ -678,7 +678,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				List2 = handleGUIStep2UserRequest(userRequest2,List1);
 				ListSorterByEvalution(List2); // Sorting
 				model = new CarTableModel(List2);
-				
+				table.setModel(model);
 				panelResults.setVisible(true);
 				panelStep2.setVisible(false);
 			}
@@ -787,7 +787,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				List3 = handleGUIStep3UserRequest(userRequest3,List2);
 				ListSorterByEvalution(List3); // Sorting
 				model = new CarTableModel(List3);
-				
+				table.setModel(model);
 				panelResults.setVisible(true);
 				panelStep3.setVisible(false);
 			}
@@ -808,6 +808,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 		
 		table = new JTable();
+		System.out.println(model);
 		table.setModel(model);
 		table.setShowGrid(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
