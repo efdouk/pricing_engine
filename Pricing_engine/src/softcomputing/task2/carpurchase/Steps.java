@@ -49,7 +49,7 @@ public class Steps {
 		}
 
 		Collections.sort(cars);
-		
+
 		List<Car> newList = new ArrayList<Car>();
 		for (int i = 0; i < cars.size(); i++) {
 			if (fulfills(cars.get(i), userRequest)) {
@@ -60,8 +60,10 @@ public class Steps {
 	}
 
 	private boolean fulfills(Car car, Step1UserRequest userRequest) {
-		if(userRequest.getPriceMin()!=null && car.getPrice() < userRequest.getPriceMin()) return false;
-		if(userRequest.getPriceMax()!=null && car.getPrice() > userRequest.getPriceMax()) return false;
+		if (userRequest.getPriceMin() != null && car.getPrice() < userRequest.getPriceMin())
+			return false;
+		if (userRequest.getPriceMax() != null && car.getPrice() > userRequest.getPriceMax())
+			return false;
 		return true;
 	}
 
@@ -102,15 +104,21 @@ public class Steps {
 				newList.add(cars.get(i));
 			}
 		}
+
 		return newList;
 	}
 
 	private boolean fulfills(Car car, Step3UserRequest userRequest3) {
-		for (CarFeature feature : userRequest3.getFeatures()) {
-			if (!car.getFeatures().contains(feature))
-				return false;
+		if (userRequest3.getMinyearOfProduction() != null && car.getYearOfProduction() < userRequest3.getMinyearOfProduction())
+			return false;
+		if (userRequest3.getMaxyearOfProduction() != null && car.getYearOfProduction() > userRequest3.getMaxyearOfProduction())
+			return false;
+		if (userRequest3.getFeatures() != null) {
+			for (CarFeature feature : userRequest3.getFeatures()) {
+				if (!car.getFeatures().contains(feature))
+					return false;
+			}
 		}
 		return true;
 	}
-
 }

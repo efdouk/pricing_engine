@@ -38,11 +38,12 @@ public class RuleFactory {
  * 
  */
 	private static Rule getRule(String attr) {
+		attr=attr.trim().toLowerCase();
 		if (attr.startsWith("custom:")) {
 			String customRules = attr.substring(attr.indexOf("{") + 1, attr.indexOf("}"));
 			return new CustomRule(customRules);
 		}
-		if (attr.equals("-"))
+		else if (attr.equals("-"))
 			return new ZeroRule();
 		else if (attr.substring(0, 1).equals("/"))
 			return new ReverseRule(Double.parseDouble(attr.substring(1)));
