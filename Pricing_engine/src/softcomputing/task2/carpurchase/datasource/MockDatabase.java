@@ -18,17 +18,26 @@ public class MockDatabase implements Database {
 	private CarFactory factory;
 	
 	public MockDatabase() {
+	}
+
+	private void reinitializeCars() {
 		items = new ArrayList<Car>();
 		factory = new CarFactory();
 		
 		items.add(factory.ferrariTestarossa());
 		items.add(factory.opelCorsa());
 		items.add(factory.mercedesSClass());
+		items.add(factory.kiaRio());
+		items.add(factory.bugattiVeyron());
+		items.add(factory.citroenBerlingo());
+		items.add(factory.skodaOctavia());
+		items.add(factory.volkswagenGolf());
 		
 	}
 
 	@Override
 	public List<Car> getCars() {
+		reinitializeCars();
 		return items;
 	}
 

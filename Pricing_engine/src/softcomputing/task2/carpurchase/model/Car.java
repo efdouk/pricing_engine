@@ -247,7 +247,7 @@ public class Car implements Comparable<Car> {
 		values.add(new Range(0.5,10).val(this.engineCapacity));
 		values.add(this.fuel.getNormalized());
 		values.add(new Range(1000,200000).val(this.price));
-		values.add(new Range(0.1,600).val(luggageCapacity));
+		values.add(new Range(0.1,10).val(luggageCapacity));
 		values.add(this.transmission.getNormalized());
 		values.add(new Range(1960,2014).val(yearOfProduction));
 		values.add(new Range(0,500000).val(kilometersOnTheGauge)); // Made a change to the half but i am not sure 

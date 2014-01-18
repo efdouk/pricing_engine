@@ -55,25 +55,41 @@ import softcomputing.task2.carpurchase.model.Step3UserRequest;
 import javax.swing.JTable;
 
 
-
 public class MainWindow extends CarPurchaseExpertSystem {
 
 	private JFrame frmCarPurchase;
-
-	private CarCriterion c1=CarCriterion.COMFORT,c2,c3;
+	private JTable table;
+	private ButtonGroup group,group2,group3,group4,group5;
+	
+	
+	/* step 1 */
+	private CarCriterion c1=CarCriterion.COMFORT;
+	private CarCriterion c2;
+	private CarCriterion c3;
 	private CarDomainType d1=CarDomainType.FAMILY;
+	private Double minBudget, maxBudget;
+	private JComboBox cmbBx_Criterion1,cmbBx_Criterion2,cmbBx_Criterion3;
+	private JComboBox cmbBx_DomainType;
+	private JRadioButton rdbtnLowCost,rdbtnAverageCost,rdbtnExpensive;
+	
+	/* step 2 */
 	private CarType ct;
-	private Double minBudget=1000., maxBudget= 50000.;
-	private Double minBurning= 0.1, maxBurning = 60.;
-	private Double minKm = 0., maxKm=150000.;
-	private Double minCapacity=0.5, maxCapacity= 1.4;
+	private Double minBurning, maxBurning;
+	private Double minKm, maxKm;
+	private Double minCapacity, maxCapacity;
 	private FuelType fuelTp;
-	private Double minYear=1960., maxYear=1980.;
+	private JRadioButton rdbtnLowBurn,rdbtnAverageBurn,rdbtnHighBurn;
+	private JComboBox cmbBxCarType,cmbBxFuelType;
+	
+	/* step 3 */
+	private Double minYear, maxYear;
 	private CarBrand cb;
 	private CarFeature cf;
-	private JTable table;
-		
-		
+	private Double max = null;
+	private JComboBox cmbBxCarFeature,cmbBxCarBrand;
+	SelectionManager manager;
+	
+			
 	Database database = new MockDatabase();
 	Steps steps = new Steps();
 	
@@ -358,7 +374,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCategory.setBounds(10, 46, 217, 14);
 		panelStep1.add(lblCategory);
 
-		final JComboBox cmbBx_Criterion1 = new JComboBox();
+		cmbBx_Criterion1 = new JComboBox();
 		cmbBx_Criterion1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBx_Criterion1.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -374,7 +390,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		cmbBx_Criterion1.setBounds(96, 71, 114, 20);
 		panelStep1.add(cmbBx_Criterion1);
 
-		final JComboBox cmbBx_Criterion2 = new JComboBox();
+		cmbBx_Criterion2 = new JComboBox();
 		cmbBx_Criterion2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBx_Criterion2.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -388,7 +404,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		cmbBx_Criterion2.setBounds(96, 102, 114, 20);
 		panelStep1.add(cmbBx_Criterion2);
 
-		final JComboBox cmbBx_Criterion3 = new JComboBox();
+		cmbBx_Criterion3 = new JComboBox();
 		cmbBx_Criterion3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBx_Criterion2.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -406,7 +422,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCarType.setBounds(10, 176, 54, 14);
 		panelStep1.add(lblCarType);
 
-		final JComboBox cmbBx_DomainType = new JComboBox();
+		cmbBx_DomainType = new JComboBox();
 		cmbBx_DomainType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -434,27 +450,27 @@ public class MainWindow extends CarPurchaseExpertSystem {
 			}
 		};
 				
-		final JRadioButton rdbtnLowCost = new JRadioButton("1000 - 50000");
-		rdbtnLowCost.setSelected(true);
+		rdbtnLowCost = new JRadioButton("1000 - 50000");
 		rdbtnLowCost.setBounds(372, 70, 120, 23);
 		rdbtnLowCost.addActionListener(actionlistener);
 		panelStep1.add(rdbtnLowCost);
 		
-		final JRadioButton rdbtnAverageCost = new JRadioButton(
+		rdbtnAverageCost = new JRadioButton(
 				"50000 - 120000");
 		rdbtnAverageCost.setBounds(372, 101, 120, 23);
 		rdbtnAverageCost.addActionListener(actionlistener);
 		panelStep1.add(rdbtnAverageCost);
 
-		final JRadioButton rdbtnExpensive = new JRadioButton("120000 - 200000");
+		rdbtnExpensive = new JRadioButton("120000 - 200000");
 		rdbtnExpensive.setBounds(372, 132, 120, 23);
 		rdbtnExpensive.addActionListener(actionlistener);
 		panelStep1.add(rdbtnExpensive);
 
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(rdbtnLowCost);
 		group.add(rdbtnAverageCost);
 		group.add(rdbtnExpensive);
+		
 		
 		final JProgressBar progressBar = new JProgressBar();
 		progressBar.setValue(33);
@@ -517,23 +533,22 @@ public class MainWindow extends CarPurchaseExpertSystem {
 			}
 		};
 				
-		final JRadioButton rdbtnLowBurn = new JRadioButton("0.1 - 60");
-		rdbtnLowBurn.setSelected(true);
+		rdbtnLowBurn = new JRadioButton("0.1 - 60");
 		rdbtnLowBurn.setBounds(67, 80, 109, 23);
 		rdbtnLowBurn.addActionListener(actionlistener2);
 		panelStep2.add(rdbtnLowBurn);
 
-		final JRadioButton rdbtnAverageBurn = new JRadioButton("60 - 100");
+		rdbtnAverageBurn = new JRadioButton("60 - 100");
 		rdbtnAverageBurn.setBounds(67, 106, 109, 23);
 		rdbtnAverageBurn.addActionListener(actionlistener2);
 		panelStep2.add(rdbtnAverageBurn);
 
-		final JRadioButton rdbtnHighBurn = new JRadioButton("100 - 200");
+		rdbtnHighBurn = new JRadioButton("100 - 200");
 		rdbtnHighBurn.setBounds(67, 132, 109, 23);
 		rdbtnHighBurn.addActionListener(actionlistener2);
 		panelStep2.add(rdbtnHighBurn);
 
-		ButtonGroup group2 = new ButtonGroup();
+		group2 = new ButtonGroup();
 		group2.add(rdbtnLowBurn);
 		group2.add(rdbtnAverageBurn);
 		group2.add(rdbtnHighBurn);
@@ -542,7 +557,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCarSize.setBounds(10, 186, 56, 14);
 		panelStep2.add(lblCarSize);
 
-		final JComboBox cmbBxCarType = new JComboBox();
+		cmbBxCarType = new JComboBox();
 		cmbBxCarType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBxCarType.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -569,7 +584,6 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 		
 		final JRadioButton rdbtnNew = new JRadioButton("0 - 15000");
-		rdbtnNew.setSelected(true);
 		rdbtnNew.setBounds(312, 80, 109, 23);
 		rdbtnNew.addActionListener(actionlistener3);
 		panelStep2.add(rdbtnNew);
@@ -585,7 +599,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		rdbtnUsedAlot.addActionListener(actionlistener3);
 		panelStep2.add(rdbtnUsedAlot);
 
-		ButtonGroup group3 = new ButtonGroup();
+		group3 = new ButtonGroup();
 		group3.add(rdbtnNew);
 		group3.add(rdbtnUsedModerately);
 		group3.add(rdbtnUsedAlot);
@@ -604,7 +618,6 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		};
 		
 		final JRadioButton rdbtnLowCapacity = new JRadioButton("0.5 - 1.4");
-		rdbtnLowCapacity.setSelected(true);
 		rdbtnLowCapacity.setBounds(277, 215, 85, 23);
 		rdbtnLowCapacity.addActionListener(actionlistener4);
 		panelStep2.add(rdbtnLowCapacity);
@@ -619,12 +632,12 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		rdbtnHighCapacity.addActionListener(actionlistener4);
 		panelStep2.add(rdbtnHighCapacity);
 
-		ButtonGroup group4 = new ButtonGroup();
+		group4 = new ButtonGroup();
 		group4.add(rdbtnLowCapacity);
 		group4.add(rdbtnAvegCapacity);
 		group4.add(rdbtnHighCapacity);
 
-		final JComboBox cmbBxFuelType = new JComboBox();
+		cmbBxFuelType = new JComboBox();
 		cmbBxFuelType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBxFuelType.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -699,14 +712,14 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		JLabel lblCarSpecialFeatures = new JLabel("Special features:");
 		lblCarSpecialFeatures.setBounds(10, 49, 107, 14);
 		panelStep3.add(lblCarSpecialFeatures);
-		features.add(CarFeature.CLIMA);
+		
 		
 		 // We need to keep track of the selections  
         SelectionManager manager = new SelectionManager();  
         // and make the selection state available to the renderer.  
         MultiRenderer renderer = new MultiRenderer(manager); 
             
-        final JComboBox cmbBxCarFeature = new JComboBox();
+        cmbBxCarFeature = new JComboBox();
 		cmbBxCarFeature.setModel(new DefaultComboBoxModel(CarFeature.values()));
 		cmbBxCarFeature.setBounds(77, 75, 175, 20);
 		cmbBxCarFeature.addActionListener(manager);  
@@ -717,7 +730,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		lblCarBrand.setBounds(10, 138, 81, 14);
 		panelStep3.add(lblCarBrand);
 
-		final JComboBox cmbBxCarBrand = new JComboBox();
+		cmbBxCarBrand = new JComboBox();
 		cmbBxCarBrand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cmbBxCarBrand.getSelectedIndex() != 0) { //Not UNKNOWN
@@ -744,7 +757,6 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		panelStep3.add(lblYearOfProduction);
 		
 		final JRadioButton rdbtnAncient = new JRadioButton("1960 - 1980");
-		rdbtnAncient.setSelected(true);
 		rdbtnAncient.setBounds(441, 74, 109, 23);
 		rdbtnAncient.addActionListener(actionlistener5);
 		panelStep3.add(rdbtnAncient);
@@ -759,7 +771,7 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		rdbtnNewCar.addActionListener(actionlistener5);
 		panelStep3.add(rdbtnNewCar);
 		
-		ButtonGroup group5 = new ButtonGroup();
+		group5 = new ButtonGroup();
 		group5.add(rdbtnAncient);
 		group5.add(rdbtnOld);
 		group5.add(rdbtnNewCar);
@@ -822,20 +834,13 @@ public class MainWindow extends CarPurchaseExpertSystem {
 		scrollPane.setSize(450, 260);
 		panelResults.add(scrollPane);
 		
-		
-		final JButton btnBack_2 = new JButton("Back");
-		btnBack_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelStep3.setVisible(true);
-				panelResults.setVisible(false);
-			}
-		});
-		btnBack_2.setBounds(379, 328, 89, 23);
-		panelResults.add(btnBack_2);
-		
 		final JButton btnStartOver = new JButton("Start over");
 		btnStartOver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				clearVariables();
+				clearGuiSelections();
+				Cars = database.getCars();
 				panelStep1.setVisible(true);
 				panelResults.setVisible(false);
 			}
@@ -846,8 +851,57 @@ public class MainWindow extends CarPurchaseExpertSystem {
 				
 	}
 	
+	
+	private void clearGuiSelections() {
+		
+		/* step 1 */
+		cmbBx_Criterion1.setSelectedIndex(1);
+		cmbBx_Criterion2.setSelectedIndex(0);
+		cmbBx_Criterion3.setSelectedIndex(0);
+		cmbBx_DomainType.setSelectedIndex(0);
+		group.clearSelection();
+		
+		/* step 2 */
+		cmbBxCarType.setSelectedIndex(0);
+		cmbBxFuelType.setSelectedIndex(0);
+		group2.clearSelection();
+		group3.clearSelection();
+		group4.clearSelection();
+		
+		/* step 3 */
+		group5.clearSelection();
+		cmbBxCarFeature.setSelectedIndex(0);
+		cmbBxCarBrand.setSelectedIndex(0);
+		
+	}
+	
 
+	private void clearVariables() {
+		
+		/* step 1 */
+		c1 = CarCriterion.COMFORT;
+		c2 = null;
+		c3 = null;
+		d1 = CarDomainType.FAMILY;
+		minBudget = null;
+		maxBudget = null;
+		/* step 2 */
+		minBurning = null;
+		maxBurning = null;
+		ct = null;
+		minKm = null;
+		maxKm = null;
+		minCapacity = null;
+		maxCapacity = null;
+		fuelTp = null;
 
+		/* step 3 */
+		cf = null;
+		cb = null;
+		minYear = null;
+		maxYear = null;
+		max = null;
+	}
 	
 	/**
 	 * @author Efthymios Doukas
@@ -898,9 +952,10 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	    public Object getValueAt(int rowIndex, int columnIndex)
 	    {
 	    	Car c= CarList.get(rowIndex);
-
-	        
-	        Object[] values=new Object[]{c.getEvaluation(),c.getBrand(),c.getName()};
+	    	if (max == null)
+				max = c.getEvaluation();
+	    	
+	        Object[] values=new Object[]{String.format("%.0f%%", 100 * c.getEvaluation() / max),c.getBrand(),c.getName()};
 	        return values[columnIndex];
 	    }
 	    
@@ -965,6 +1020,10 @@ public class MainWindow extends CarPurchaseExpertSystem {
 	    public boolean isSelected(Object item) {  
 	        return selectedItems.contains(item);  
 	    }  
+	    
+	    public void clearSelections() {
+	    	selectedItems.clear();
+	    }
 	}  
 	   
 	/** Implementation copied from source code. */  
